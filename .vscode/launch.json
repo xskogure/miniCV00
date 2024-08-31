@@ -1,0 +1,35 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ParseTest00",
+            "request": "launch",
+            "mainClass": "lang.c.parse.ParseTest00",
+            "projectName": "minicv"
+        },
+        {
+            "type": "java",
+            "name": "MiniCompiler",
+            "request": "launch",
+            "mainClass": "lang.c.MiniCompiler",
+            "projectName": "minicv",
+            "args": [
+                "src\\main\\java\\lang\\c\\test.c"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "TestCToken",
+            "request": "launch",
+            "mainClass": "lang.c.TestCToken",
+            "projectName": "minicv",
+            "args": [
+                "src\\main\\java\\lang\\c\\test.c"
+            ]
+        }
+    ]
+}
