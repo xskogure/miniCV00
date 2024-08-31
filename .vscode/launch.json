@@ -6,13 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "ParseTest00",
-            "request": "launch",
-            "mainClass": "lang.c.parse.ParseTest00",
-            "projectName": "minicv"
-        },
-        {
-            "type": "java",
             "name": "MiniCompiler",
             "request": "launch",
             "mainClass": "lang.c.MiniCompiler",
