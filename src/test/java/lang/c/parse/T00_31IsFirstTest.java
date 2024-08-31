@@ -38,6 +38,7 @@ public class T00_31IsFirstTest {
         }
 
         // リスト不当例
+        @Test
         public void rejectList() throws FatalErrorException {
             String[] testDataArr = { "@2", "+" };
             numberHelper.falseListTest(testDataArr);
