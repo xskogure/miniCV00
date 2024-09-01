@@ -96,8 +96,8 @@ public class T00_32ParseTest {
     }
 
     // ExpressionAdd は 単体では parse() 以降のテストはできない(コンストラクタに左辺のCParseRule を入れないといけないため．
-    // それを考慮したテストを作るとそれはただの Expression なので，Expression のテストで，同時に ExpressionAdd
-    // も評価できるとする)
+    // 下記では，予定される左辺のクラスと，テストしたいクラスの2つを指定し，その2つの非終端記号が連続で来る(1個だけ見る)部分だけをテストする
+    // 専用の ParseTestHelper2 を利用している
     public static class ExpressionAddTest {
         ParseTestHelper2<Term,ExpressionAdd> expressionAddHelper = new ParseTestHelper2<Term,ExpressionAdd>(Term.class,ExpressionAdd.class);
         @Test
@@ -118,10 +118,6 @@ public class T00_32ParseTest {
         expressionAddHelper.parseRejectTestList(arr);
         }
     }
-
-    // ExpressionAdd は 単体では parse() 以降のテストはできない(コンストラクタに左辺のCParseRule を入れないといけないため．
-    // それを考慮したテストを作るとそれはただの Expression なので，Expression のテストで，同時に ExpressionAdd
-    // も評価できるとする)
 
     public static class ExpressionTest {
         ParseTestHelper<Expression> expressionHelper = new ParseTestHelper<Expression>(Expression.class);
