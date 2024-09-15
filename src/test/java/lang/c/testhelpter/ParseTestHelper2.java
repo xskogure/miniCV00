@@ -43,7 +43,7 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
         try {
             fcon = fc.getConstructor(CParseContext.class);
             fIsFirst = fc.getMethod("isFirst", CToken.class);
-            tcon = tc.getConstructor(CParseContext.class);
+            tcon = tc.getConstructor(CParseContext.class,  CParseRule.class);
             tIsFirst = tc.getMethod("isFirst", CToken.class);
         } catch(Exception e) {
             e.printStackTrace();
@@ -93,9 +93,10 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
             F frule = fcon.newInstance(cpContext);
             frule.parse(cpContext);
             tk = tokenizer.getCurrentToken(cpContext);
+            System.err.println("tk="+tk.getTokenString());
             if (!((boolean)tIsFirst.invoke(null, tk)))
                 fail("This test cannot check "+ tc.getName() +"parse() because "+ tc.getName() +".isFirst() is false for this testDdata\"" + testData + "\"");
-            T trule = tcon.newInstance(cpContext);
+            T trule = tcon.newInstance(cpContext, frule);
             trule.parse(cpContext);
             assertThat(testData, errorOutputStream.getPrintBufferString(), is(""));
             tk = tokenizer.getCurrentToken(cpContext);
@@ -128,12 +129,13 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
             tk = tokenizer.getCurrentToken(cpContext);
             if (!((boolean)tIsFirst.invoke(null, tk)))
                 fail(tc.getName() +".isFirst() がfalseです");
-            T trule = tcon.newInstance(cpContext);
+            T trule = tcon.newInstance(cpContext, frule);
             trule.parse(cpContext);
             fail("This unjustified testData\"" + testData + "\" should have been rejected, but was accepted.\nIf the test data is unjustified data, you should fix the parse() of the class under test.\nIf the test data is valid data, you should test this test data using parseAcceptTestList() instead of parseRejectTestList().");
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
         } catch (Exception e){
+            System.err.println("Error: I don't know the reason of error.");
             e.printStackTrace();
         }
     }
