@@ -82,7 +82,7 @@ public class CTokenizer extends Tokenizer<CToken, CParseContext> {
 		int startCol = colNo;
 		StringBuffer text = new StringBuffer();
 
-		int state = 0;
+		int state = ST_NORMAL;
 		boolean accept = false;
 		while (!accept) {
 			switch (state) {
