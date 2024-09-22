@@ -86,8 +86,6 @@ public class ParseTestHelper<T extends CParseRule> {
                 fail("This test cannot check parse() because isFirst() is false for this testDdata\"" + testData + "\"");
             rule.parse(cpContext);
             assertThat(testData + ": no error chech: ", errorOutputStream.getPrintBufferString(), is(""));
-            tk = tokenizer.getCurrentToken(cpContext);
-            //assertThat(testData + ": currentToken: [" + tk.toExplainString() + "] check: ", tk.getTokenString(), is("TK_EOF"));
         } catch (FatalErrorException fee) {
             fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected.");
         } catch (Exception e) {
