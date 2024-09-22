@@ -99,8 +99,6 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
             T trule = tcon.newInstance(cpContext, frule);
             trule.parse(cpContext);
             assertThat(testData, errorOutputStream.getPrintBufferString(), is(""));
-            tk = tokenizer.getCurrentToken(cpContext);
-            //assertThat(testData + ": nextToken EOF check: ", tk.getTokenString(), is("TK_EOF"));
         } catch (FatalErrorException fee) {
             fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected.");
         } catch (Exception e) {
