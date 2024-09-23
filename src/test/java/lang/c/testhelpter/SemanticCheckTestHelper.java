@@ -116,6 +116,37 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         }
     }
 
+    // semanticCheck() typeAndConstantTest
+    public void typeAndConstantListTest(TestDataAndCTypeAndConstant[] testDataArr) throws FatalErrorException {
+        for (TestDataAndCTypeAndConstant testData: testDataArr) {
+            typeAndConstantTest(testData);
+        }
+    }
+
+    // semanticCheck() typeAndConstantTest
+    public void typeAndConstantTest(TestDataAndCTypeAndConstant tc)  {
+        typeAndConstantTest(tc.getTestData(), tc.getType(), tc.getIsConstant());
+    }
+
+    
+    // semanticCheck() typeAndConstantTest
+    public void typeAndConstantTest(String testData, int type, boolean isConstant)  {
+        resetEnvironment();
+        inputStream.setInputString(testData);
+        tokenizer.getNextToken(cpContext);
+        try {
+            T c = con.newInstance(cpContext);
+            c.parse(cpContext);
+            c.semanticCheck(cpContext);
+            assertThat("testData \"" + testData + "\" type:", c.getCType().getType(), is(type));
+            assertThat("testData \"" + testData + "\" isConstant", c.isConstant(), is(isConstant));
+        } catch (FatalErrorException fee) {
+            fail("testData\"" + testData + "\": this testdata was rejected.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void rejectListTest(TestDataAndErrMessage[] testDataArr) throws FatalErrorException {
         for (TestDataAndErrMessage testData: testDataArr) {
             rejectTest(testData);
