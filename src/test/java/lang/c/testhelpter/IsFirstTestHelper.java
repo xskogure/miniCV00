@@ -2,6 +2,7 @@ package lang.c.testhelpter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Method;
 
@@ -97,7 +98,9 @@ public class IsFirstTestHelper<T extends CParseRule> {
         System.err.println("isFirst: " + isFirst);
         try {
             assertThat(testData, (boolean)isFirst.invoke(null, firstToken), is(expected));
-        } catch (Exception e) {
+        } catch (IllegalAccessException iae) {
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+        }  catch (Exception e) {
             e.printStackTrace();
         }
     }
