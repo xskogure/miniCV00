@@ -88,7 +88,9 @@ public class ParseTestHelper<T extends CParseRule> {
             assertThat(testData + ": no error chech: ", errorOutputStream.getPrintBufferString(), is(""));
         } catch (FatalErrorException fee) {
             fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected.");
-        } catch (Exception e) {
+        } catch (IllegalAccessException iae) {
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+        }  catch (Exception e) {
             e.printStackTrace();
         } 
     }
@@ -114,7 +116,9 @@ public class ParseTestHelper<T extends CParseRule> {
             fail("This unjustified testData\"" + testData + "\" should have been rejected, but was accepted.\nIf the test data is unjustified data, you should fix the parse() of the class under test.\nIf the test data is valid data, you should test this test data using parseAcceptTestList() instead of parseRejectTestList().");
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
-        } catch (Exception e){
+        } catch (IllegalAccessException iae) {
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+        }  catch (Exception e){
             e.printStackTrace();
         }
     }
