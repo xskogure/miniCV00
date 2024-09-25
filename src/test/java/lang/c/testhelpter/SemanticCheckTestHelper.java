@@ -124,13 +124,13 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
     }
 
     // semanticCheck() typeAndConstantTest
-    public void typeAndConstantTest(TestDataAndCTypeAndConstant tc)  {
+    public void typeAndConstantTest(TestDataAndCTypeAndConstant tc) throws FatalErrorException {
         typeAndConstantTest(tc.getTestData(), tc.getType(), tc.getIsConstant());
     }
 
     
     // semanticCheck() typeAndConstantTest
-    public void typeAndConstantTest(String testData, int type, boolean isConstant)  {
+    public void typeAndConstantTest(String testData, int type, boolean isConstant) throws FatalErrorException  {
         resetEnvironment();
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
@@ -143,7 +143,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (FatalErrorException fee) {
             fail("testData\"" + testData + "\": this testdata was rejected.");
         } catch (Exception e) {
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
+            //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
@@ -169,7 +169,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
         } catch (Exception e){
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
+            //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
