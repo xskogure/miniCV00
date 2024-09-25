@@ -132,8 +132,11 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
             fail("This unjustified testData\"" + testData + "\" should have been rejected, but was accepted.\nIf the test data is unjustified data, you should fix the parse() of the class under test.\nIf the test data is valid data, you should test this test data using parseAcceptTestList() instead of parseRejectTestList().");
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
+        } catch (IllegalAccessException iae) {
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
         } catch (Exception e){
             System.err.println("Error: I don't know the reason of error.");
+            //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
