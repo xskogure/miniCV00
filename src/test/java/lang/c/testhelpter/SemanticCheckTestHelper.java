@@ -143,6 +143,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (FatalErrorException fee) {
             fail("testData\"" + testData + "\": this testdata was rejected.");
         } catch (Exception e) {
+            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
@@ -168,6 +169,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
         } catch (Exception e){
+            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
