@@ -136,7 +136,7 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
             fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
         } catch (Exception e){
             System.err.println("Error: I don't know the reason of error.");
-            //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
+            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
