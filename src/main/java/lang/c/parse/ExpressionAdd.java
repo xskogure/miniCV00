@@ -8,7 +8,7 @@ import lang.c.CTokenizer;
 import lang.c.CType;
 import lang.c.CodeGenCommon;
 
-class ExpressionAdd extends CParseRule {
+public class ExpressionAdd extends CParseRule {
 	// 新しく非終端記号に対応するクラスを作成する際は，必ず拡張BNF をコメントでつけること
 	// また，更新する際は，拡張BNFの「履歴」を残すこと（例えば，実験３まで：．．．． と 実験４から：．．． のように）
 	// expressionAdd ::= '+' term
