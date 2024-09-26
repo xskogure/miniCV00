@@ -133,8 +133,9 @@ public class CodeGenTestHelper<T extends CParseRule> {
         resetEnvironment();
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
+        T rule = null;
         try {
-            T rule = con.newInstance(cpContext);
+            rule = con.newInstance(cpContext);
             CToken tk = tokenizer.getCurrentToken(cpContext);
             if (!(boolean)isFirst.invoke(null, tk))
                 fail("isFirst() is false.");
@@ -151,7 +152,9 @@ public class CodeGenTestHelper<T extends CParseRule> {
             // Check only code portion, not validate comments
             List<String> outputBuffer = outputStream.getPrintBuffer();
             checkCodePortion(outputBuffer, expected);
-        } catch (Exception e) {
+        } catch (FatalErrorException fee) {
+            fail("testData: \"" + testData + "\" is FatalError(). Prease check that the testData is correctly accepted by the this class for non-terminal [" + rule.getBNF(rule.getId())+ "]");
+        } catch (Exception e) { 
             e.printStackTrace();
         }
     }
