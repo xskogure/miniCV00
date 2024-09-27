@@ -73,8 +73,8 @@ public class ExpressionAdd extends CParseRule {
 			String t = getCType().toString();
 //			cgc.printInstCodeGen("", "MOV -(R6), R0", "ExpressionAdd: 右を取り出す:["+lt+"]");
 //			cgc.printInstCodeGen("", "MOV -(R6), R1", "ExpressionAdd: 左を取り出す:["+rt+"]");
-			cgc.printPopCodeGen("", "R0", "ExpressionAdd: 右を取り出す:["+lt+"]");
-			cgc.printPopCodeGen("", "R1", "ExpressionAdd: 左を取り出す:["+rt+"]");
+			cgc.printPopCodeGen("", "R0", "ExpressionAdd: 右を取り出す:["+rt+"]");
+			cgc.printPopCodeGen("", "R1", "ExpressionAdd: 左を取り出す:["+lt+"]");
 			cgc.printInstCodeGen("", "ADD R1, R0", "ExpressionAdd: R1["+lt+"]をR0["+rt+"] に足す:");
 			cgc.printPushCodeGen("", "R0", "ExpressionAdd: 演算結果R0["+t+"]をスタックに積む");
 			cgc.printCompleteComment(getBNF(getId()));
