@@ -87,9 +87,9 @@ public class ParseTestHelper<T extends CParseRule> {
             rule.parse(cpContext);
             assertThat(testData + ": no error chech: ", errorOutputStream.getPrintBufferString(), is(""));
         } catch (FatalErrorException fee) {
-            fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected.");
+            fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected. FatalError: " + errorOutputStream.getPrintBufferString());
         } catch (IllegalAccessException iae) {
-            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class : IllegalAccessException: " + errorOutputStream.getPrintBufferString());
         }  catch (Exception e) {
             e.printStackTrace();
         } 
@@ -117,7 +117,7 @@ public class ParseTestHelper<T extends CParseRule> {
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
         } catch (IllegalAccessException iae) {
-            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class: IllegalAccellException: " + errorOutputStream.getPrintBufferString());
         }  catch (Exception e){
             fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
