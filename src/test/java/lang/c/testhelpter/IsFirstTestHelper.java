@@ -99,9 +99,9 @@ public class IsFirstTestHelper<T extends CParseRule> {
         try {
             assertThat(testData, (boolean)isFirst.invoke(null, firstToken), is(expected));
         } catch (IllegalAccessException iae) {
-            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class: EllegalAccessException: " + errorOutputStream.getPrintBufferString());
         }  catch (Exception e) {
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError and IllegalAccess. ");
+            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError and IllegalAccess. Error:" + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         }
     }
