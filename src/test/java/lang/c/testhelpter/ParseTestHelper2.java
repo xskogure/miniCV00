@@ -100,8 +100,9 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
             trule.parse(cpContext);
             assertThat(testData, errorOutputStream.getPrintBufferString(), is(""));
         } catch (FatalErrorException fee) {
-            fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected.");
+            fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected. FatalError: " + errorOutputStream.getPrintBufferString());
         } catch (Exception e) {
+            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.: Error: " + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         } 
     }
@@ -133,10 +134,10 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
         } catch (IllegalAccessException iae) {
-            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class ");
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class: IllegalAccessException: " + errorOutputStream.getPrintBufferString());
         } catch (Exception e){
             System.err.println("Error: I don't know the reason of error.");
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
+            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.: Error: " + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         }
     }
