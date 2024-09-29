@@ -68,7 +68,7 @@ public class CodeGenTestHelper<T extends CParseRule> {
         setUp();
     }
     private final String opRule = 
-    "(MOV|CLR|ADD|SUB|CMP|OR|XOR|AND|BIT|ASL|ASR|LSL|LSR|ROL|ROR|JMP|RJP|BRN|BRZ|BRV|BRC|RBN|RBZ|JSR|RJS|SVC)";
+    "(MOV|CLR|ADD|SUB|CMP|OR|XOR|AND|BIT|ASL|ASR|LSL|LSR|ROL|ROR|JMP|RJP|BRN|BRZ|BRV|BRC|RBN|RBZ|JSR|RJS|SVC|.word|.blkw)";
     //private final String pseudoOpRule = "(\\.\\s*END|\\.\\s*WORD|\\.\\s*\\=|\\.\\s*BLKW)";
     /**
      * ロバストな比較用にコメント行なし・コメント部分なし・空白/タブなしのデータに変換する
@@ -153,8 +153,13 @@ public class CodeGenTestHelper<T extends CParseRule> {
             List<String> outputBuffer = outputStream.getPrintBuffer();
             checkCodePortion(outputBuffer, expected);
         } catch (FatalErrorException fee) {
-            fail("testData: \"" + testData + "\" is FatalError(). Prease check that the testData is correctly accepted by the this class for non-terminal [" + rule.getBNF(rule.getId())+ "]");
+            fail("testData: \"" + testData + "\" is FatalError(). Prease check that the testData is correctly accepted by the this class for non-terminal [" + rule.getBNF(rule.getId())+ "]\nFatalError: " + errorOutputStream.getPrintBufferString());
+            fee.printStackTrace();
+        } catch (NullPointerException npe) {
+            fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + rule.getBNF(rule.getId())+ "]\nNullPointerException: " + errorOutputStream.getPrintBufferString());
+            npe.printStackTrace();
         } catch (Exception e) { 
+            fail("error: " + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         }
     }
