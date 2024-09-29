@@ -74,13 +74,17 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         resetEnvironment();
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
+        T c = null;
         try {
-            T c = con.newInstance(cpContext);
+            c = con.newInstance(cpContext);
             c.parse(cpContext);
             c.semanticCheck(cpContext);
             assertThat(testData, errorOutputStream.getPrintBufferString(), is(""));
         } catch (FatalErrorException fee) {
-            fail("testData\"" + testData + "\": this testdata was rejected.");
+            fail("testData\"" + testData + "\": this testdata was rejected. FatalError: " + errorOutputStream.getPrintBufferString());
+        } catch (NullPointerException npe) {
+            fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
+            npe.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,13 +108,17 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         resetEnvironment();
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
+        T c=null;
         try {
-            T c = con.newInstance(cpContext);
+            c = con.newInstance(cpContext);
             c.parse(cpContext);
             c.semanticCheck(cpContext);
             assertThat("testData \"" + testData + "\"", c.getCType().getType(), is(type));
         } catch (FatalErrorException fee) {
             fail("testData\"" + testData + "\": this testdata was rejected.");
+        } catch (NullPointerException npe) {
+            fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
+            npe.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,14 +142,18 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         resetEnvironment();
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
+        T c = null;
         try {
-            T c = con.newInstance(cpContext);
+            c = con.newInstance(cpContext);
             c.parse(cpContext);
             c.semanticCheck(cpContext);
             assertThat("testData \"" + testData + "\" type:", c.getCType().getType(), is(type));
             assertThat("testData \"" + testData + "\" isConstant", c.isConstant(), is(isConstant));
         } catch (FatalErrorException fee) {
             fail("testData\"" + testData + "\": this testdata was rejected.");
+        } catch (NullPointerException npe) {
+            fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
+            npe.printStackTrace();
         } catch (Exception e) {
             //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
@@ -161,15 +173,18 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         String errMessage = testDataAndErrorMessage.getErrMessage();
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
+        T c = null;
         try {
-            T c = con.newInstance(cpContext);
+            c = con.newInstance(cpContext);
             c.parse(cpContext);
             c.semanticCheck(cpContext);
             fail("testData\"" + testData + "\": this testdata must be reject.");
         } catch (FatalErrorException fee) {
             assertThat(testData, errorOutputStream.getPrintBufferString(), containsString(errMessage));
+        } catch (NullPointerException npe) {
+            fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
+            npe.printStackTrace();
         } catch (Exception e){
-            //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
