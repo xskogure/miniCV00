@@ -38,7 +38,23 @@ public class ParseTestHelper<T extends CParseRule> {
         this.c = c;
         try {
             con = c.getConstructor(CParseContext.class);
+        } catch (NoSuchMethodException nsme) {
+            resetEnvironment();
+            fail("""
+            NoSuchMethodException: Constructor is not found!. 
+                If you get this error in your test for binary operators, 
+                you should test this class using ParseTestHelpter2, see Testing ExpressionAdd.
+            """ + errorOutputStream.getPrintBufferString());      
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        try {
             isFirst = c.getMethod("isFirst", CToken.class);
+        } catch (NoSuchMethodException nsme) {
+            resetEnvironment();
+            fail("""
+                NoSuchMethodException: isFirst Method is not found!. Please check declaration of \\\"public\\\" method.
+            """ + errorOutputStream.getPrintBufferString());      
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +86,7 @@ public class ParseTestHelper<T extends CParseRule> {
     }
 
     // parse() 正答例
-    public void parseAcceptTestList(String[] testDataArr) throws FatalErrorException {
+    public void parseAcceptListTest(String[] testDataArr) throws FatalErrorException {
         for (String testData: testDataArr) {
             parseAcceptTest(testData);
         }
@@ -85,18 +101,18 @@ public class ParseTestHelper<T extends CParseRule> {
             if (!((boolean)isFirst.invoke(null, tk)))
                 fail("This test cannot check parse() because isFirst() is false for this testDdata\"" + testData + "\"");
             rule.parse(cpContext);
-            assertThat(testData + ": no error chech: ", errorOutputStream.getPrintBufferString(), is(""));
+            assertThat(testData + ": no error check: ", errorOutputStream.getPrintBufferString(), is(""));
         } catch (FatalErrorException fee) {
             fail("This valid testData\"" + testData + "\" should have been accepted, but was rejected. FatalError: " + errorOutputStream.getPrintBufferString());
         } catch (IllegalAccessException iae) {
-            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class : IllegalAccessException: " + errorOutputStream.getPrintBufferString());
+            fail("IllegalAccessException: isFirst() is not found. Please check declaration of \"public\" class : IllegalAccessException: " + errorOutputStream.getPrintBufferString());    
         }  catch (Exception e) {
             e.printStackTrace();
         } 
     }
 
     // parse() 不当例
-    public void parseRejectTestList(TestDataAndErrMessage[] testDataArr) throws FatalErrorException {
+    public void parseRejectListTest(TestDataAndErrMessage[] testDataArr) throws FatalErrorException {
         for (TestDataAndErrMessage testDataAndErrorMessage: testDataArr) {
             parseRejectTest(testDataAndErrorMessage);
         }

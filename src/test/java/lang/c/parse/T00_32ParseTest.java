@@ -20,7 +20,7 @@ public class T00_32ParseTest {
             String[] testDataArr = {
                     "255", "377"
             };
-            numberHelper.parseAcceptTestList(testDataArr);
+            numberHelper.parseAcceptListTest(testDataArr);
         }
 
         // Number 不当例
@@ -35,7 +35,7 @@ public class T00_32ParseTest {
                     new TestDataAndErrMessage("=", "isFirst() が false です"),
                     new TestDataAndErrMessage("@", "isFirst() が false です"),
             };
-            numberHelper.parseRejectTestList(testDataArr);
+            numberHelper.parseRejectListTest(testDataArr);
         }
     }
 
@@ -48,7 +48,7 @@ public class T00_32ParseTest {
             String[] testDataArr = {
                     "255", "377"
             };
-            factorHelper.parseAcceptTestList(testDataArr);
+            factorHelper.parseAcceptListTest(testDataArr);
         }
 
         // Factor 不当例
@@ -63,7 +63,7 @@ public class T00_32ParseTest {
                     new TestDataAndErrMessage("=", "isFirst() が false です"),
                     new TestDataAndErrMessage("@", "isFirst() が false です"),
             };
-            factorHelper.parseRejectTestList(testDataArr);
+            factorHelper.parseRejectListTest(testDataArr);
         }
     }
 
@@ -76,7 +76,7 @@ public class T00_32ParseTest {
             String[] testDataArr = {
                     "255", "377"
             };
-            termHelper.parseAcceptTestList(testDataArr);
+            termHelper.parseAcceptListTest(testDataArr);
         }
 
         // Factor 不当例
@@ -91,7 +91,7 @@ public class T00_32ParseTest {
                     new TestDataAndErrMessage("=", "isFirst() が false です"),
                     new TestDataAndErrMessage("@", "isFirst() が false です"),
             };
-            termHelper.parseRejectTestList(testDataArr);
+            termHelper.parseRejectListTest(testDataArr);
         }
     }
 
@@ -100,22 +100,23 @@ public class T00_32ParseTest {
     // 専用の ParseTestHelper2 を利用している
     public static class ExpressionAddTest {
         ParseTestHelper2<Term,ExpressionAdd> expressionAddHelper = new ParseTestHelper2<Term,ExpressionAdd>(Term.class,ExpressionAdd.class);
-        @Test
+//        ParseTestHelper<ExpressionAdd> expressionAddHelper = new ParseTestHelper<ExpressionAdd>(ExpressionAdd.class);  //二項演算子のテストはこの宣言ではテストできない
+@Test
         public void accept() throws FatalErrorException {
             String[] testDataArr = {
                     "2+4", // 全部解釈されて accept
                     "1+3+434+3", // 全部解釈されて accept
             };
-            expressionAddHelper.parseAcceptTestList(testDataArr);
+            expressionAddHelper.parseAcceptListTest(testDataArr);
         }
         @Test
         public void reject() throws FatalErrorException {
             TestDataAndErrMessage[] arr = {
                 // new TestDataAndErrMessage("1", "これは正当例なのでこのデータのテストは失敗します"),
                 //new TestDataAndErrMessage("1+2-3", "TK_EOF"),
-                new TestDataAndErrMessage("1+", "+の後ろはtermです"),
+                new TestDataAndErrMessage("1+", "'+' の後ろには Term が必要です"),
         };
-        expressionAddHelper.parseRejectTestList(arr);
+        expressionAddHelper.parseRejectListTest(arr);
         }
     }
 
@@ -130,7 +131,7 @@ public class T00_32ParseTest {
                     "2", // 全部解釈されて accept
                     "1+3+434+3", // 全部解釈されて accept
             };
-            expressionHelper.parseAcceptTestList(testDataArr);
+            expressionHelper.parseAcceptListTest(testDataArr);
         }
 
         // Expression 不当例
@@ -146,9 +147,9 @@ public class T00_32ParseTest {
             TestDataAndErrMessage[] arr = {
                     // new TestDataAndErrMessage("1", "これは正当例なのでこのデータのテストは失敗します"),
                     //new TestDataAndErrMessage("1+2-3", "TK_EOF"),
-                    new TestDataAndErrMessage("1+", "+の後ろはtermです"),
+                    new TestDataAndErrMessage("1+", "'+' の後ろには Term が必要です"),
             };
-            expressionHelper.parseRejectTestList(arr);
+            expressionHelper.parseRejectListTest(arr);
         }
     }
 
@@ -163,7 +164,7 @@ public class T00_32ParseTest {
                     "1+3+434+3", // 全部解釈されて accept
 
             };
-            programHelper.parseAcceptTestList(testDataArr);
+            programHelper.parseAcceptListTest(testDataArr);
         }
 
         // Program 不当例
@@ -178,11 +179,11 @@ public class T00_32ParseTest {
         public void reject() throws FatalErrorException {
             TestDataAndErrMessage[] arr = {
                     // new TestDataAndErrMessage("1", "これは正当例なのでこのデータのテストは失敗します"),
-                    new TestDataAndErrMessage("1+", "+の後ろはtermです"),
+                    new TestDataAndErrMessage("1+", "'+' の後ろには Term が必要です"),
                     new TestDataAndErrMessage("1+2+3+4+5-", "プログラムの最後にゴミがあります"),
                     new TestDataAndErrMessage("2030###", "プログラムの最後にゴミがあります"),
             };
-            programHelper.parseRejectTestList(arr);
+            programHelper.parseRejectListTest(arr);
         }
     }
 }

@@ -32,14 +32,14 @@ public class CodeGenCommon {
     }
 
     public void printPushCodeGen(String label, String op, String comment) {
-        CodeGenEntry cge = new CodeGenEntry(CodeGenEntry.INST, label, "MOV "+op+", (R6)+", comment);
-        printComment("\t\t\t; push " + op + "; R6 は Stack Pointer");
+        CodeGenEntry cge = new CodeGenEntry(CodeGenEntry.INST, label, "MOV "+op+", (SP)+", comment);
+        printComment("\t\t\t; push " + op + "; SP(R6) は Stack Pointer");
         output.println(cge.codeGen());
     }
 
     public void printPopCodeGen(String label, String op, String comment) {
-        CodeGenEntry cge = new CodeGenEntry(CodeGenEntry.INST, label, "MOV -(R6), "+op+" ", comment);
-        printComment("\t\t\t; pop " + op + "; R6 は Stack Pointer");
+        CodeGenEntry cge = new CodeGenEntry(CodeGenEntry.INST, label, "MOV -(SP), "+op+" ", comment);
+        printComment("\t\t\t; pop " + op + "; SP(R6) は Stack Pointer");
         output.println(cge.codeGen());
     }
 

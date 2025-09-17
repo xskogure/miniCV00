@@ -76,7 +76,7 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
     }
 
     // parse() 正答例
-    public void parseAcceptTestList(String[] testDataArr) throws FatalErrorException {
+    public void parseAcceptListTest(String[] testDataArr) throws FatalErrorException {
         for (String testData: testDataArr) {
             parseAcceptTest(testData);
         }
@@ -108,7 +108,7 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
     }
 
     // parse() 不当例
-    public void parseRejectTestList(TestDataAndErrMessage[] testDataArr) throws FatalErrorException {
+    public void parseRejectListTest(TestDataAndErrMessage[] testDataArr) throws FatalErrorException {
         for (TestDataAndErrMessage testDataAndErrorMessage: testDataArr) {
             parseRejectTest(testDataAndErrorMessage);
         }

@@ -35,7 +35,7 @@ public class ExpressionAdd extends CParseRule {
 			right = new Term(pcx);
 			right.parse(pcx);
 		} else {
-			pcx.fatalError(tk + "+の後ろはtermです");
+			pcx.fatalError(tk + ": '+' の後ろには Term が必要です");
 		}
 	}
 

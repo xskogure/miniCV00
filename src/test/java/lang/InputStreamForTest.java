@@ -28,6 +28,8 @@ public class InputStreamForTest extends InputStream {
             pos++;
             return c;
         } catch ( IndexOutOfBoundsException e ) {
+            return -1;
+        } catch (Exception e) {
             throw new IOException();
         }
     }

@@ -121,7 +121,7 @@ public class T00_41SemanticCheckTest {
         public void reject() throws FatalErrorException{
             // このテストは結局 parse() のエラーをチェックしているに過ぎない．
             TestDataAndErrMessage te1 = new TestDataAndErrMessage("1+3@@@@@", "プログラムの最後にゴミがあります");
-            TestDataAndErrMessage te2 = new TestDataAndErrMessage("1234+", "+の後ろはtermです");
+            TestDataAndErrMessage te2 = new TestDataAndErrMessage("1234+", "'+' の後ろには Term が必要です");
 
             programHelper.rejectTest(te1);
             programHelper.rejectTest(te2);
@@ -137,7 +137,7 @@ public class T00_41SemanticCheckTest {
             // このテストは結局 parse() のエラーをチェックしているに過ぎない．
             TestDataAndErrMessage[] teList = {
                 new TestDataAndErrMessage("1+3@@@@@", "プログラムの最後にゴミがあります"),
-                new TestDataAndErrMessage("1+", "+の後ろはtermです")
+                new TestDataAndErrMessage("1+", "'+' の後ろには Term が必要です")
             }; 
             programHelper.rejectListTest(teList);
         }

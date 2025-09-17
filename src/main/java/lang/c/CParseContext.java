@@ -6,6 +6,7 @@ import lang.*;
 
 public class CParseContext extends ParseContext {
 	CodeGenCommon cgc;
+
 	HashMap<String,Integer> seqHashMap = new HashMap<String,Integer>();
 	public CParseContext(IOContext ioCtx,  CTokenizer tknz) {
 		super(ioCtx, tknz);

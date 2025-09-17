@@ -42,8 +42,8 @@ public class Program extends CParseRule {
 			cgc.printInstCodeGen("", ".= 0x0100", "Program: 開始番地");
 			cgc.printInstCodeGen("", "JMP __START", "Program: __STARTに飛ぶ");
 			// ここには将来、変数宣言に対するコード生成が必要
-			// cgc.printLabel("i_a:	.word 100", "通常変数(1word)割当と初期化");
-			// cgc.printLabel("ia_a:	.blkw 10", "配列変数(10要素)の割当");
+			// cgc.printLabel("i_a: .word 100", "通常変数(1word)割当と初期化");
+			// cgc.printLabel("ia_a: .blkw 10", "配列変数(10要素)の割当");
 
 			cgc.printLabel("__START:", "Program: ここから開始");
 			cgc.printInstCodeGen("", "MOV #0x1000, R6", "Program: SP初期化");

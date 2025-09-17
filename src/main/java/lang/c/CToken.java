@@ -146,6 +146,10 @@ public class CToken extends SimpleToken {
         return getType() == type;
     }
 
+    public boolean is(CToken tk) {
+        return is(tk.getType());
+    }
+
     @Override
     public String toString() {
         return toDetailExplainString();
