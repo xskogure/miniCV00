@@ -21,13 +21,13 @@ public class T00_51CodeGenTest {
             // ここに miniCompiler の実行結果を貼り付けるのはNG行為
             String expected = """
                         ;;; 予測の方に自分が予測コードを書く際に必要となる情報等は記入して良い
-                        MOV #1, (R6)+   ;; Number で出力
+                        MOV #1, (SP)+   ;; Number で出力
                     """;
             // ↑ """の横位置が先頭と考える．コード・擬似コードは先頭に空白やタブが必要なことを思い出そう
             /* 以下はMOV命令の先頭に空白タブがないと判定される！ 
             String expected = """
                         ;;; 予測の方に自分が予測コードを書く際に必要となる情報等は記入して良い
-                    MOV #1, (R6)+   ;; Number で出力
+                    MOV #1, (SP)+   ;; Number で出力
                     """;
                     */
             numberHelper.checkCodeGen(testData, expected);
@@ -43,7 +43,7 @@ public class T00_51CodeGenTest {
             // ここに miniCompiler の実行結果を貼り付けるのはNG行為
             String expected = """
                         ;;; 予測の方に自分が予測コードを書く際に必要となる情報等は記入して良い
-                        MOV #1, (R6)+   ;; Number で出力
+                        MOV #1, (SP)+   ;; Number で出力
                     """;
             // ↑ """の横位置が先頭と考える．コード・擬似コードは先頭に空白やタブが必要なことを思い出そう
             factorHelper.checkCodeGen(testData, expected);
@@ -59,7 +59,7 @@ public class T00_51CodeGenTest {
             // ここに miniCompiler の実行結果を貼り付けるのはNG行為
             String expected = """
                         ;;; 予測の方に自分が予測コードを書く際に必要となる情報等は記入して良い
-                        MOV #1, (R6)+
+                        MOV #1, (SP)+ ;; SP=R6
                     """;
             // ↑ """の横位置が先頭と考える．コード・擬似コードは先頭に空白やタブが必要なことを思い出そう
             termHelper.checkCodeGen(testData, expected);
@@ -73,7 +73,7 @@ public class T00_51CodeGenTest {
             // ここに miniCompiler の実行結果を貼り付けるのはNG行為
             String expected = """
                         ;;; 予測の方に自分が予測コードを書く際に必要となる情報等は記入して良い
-                    MOV #1, (R6)+
+                    MOV #1, (SP)+  ;; SP=R6
                     """;
             // ↑ """の横位置が先頭と考える．この場合 MOV の前に空白やタブがない判定になるためこのテストは失敗する
             termHelper.checkCodeGen(testData, expected);
@@ -88,12 +88,12 @@ public class T00_51CodeGenTest {
             String testData = "7 + 2";
             // ここに miniCompiler の実行結果を貼り付けるのはNG行為
             String expected = """
-                        MOV	#7, (R6)+  ;; Number が出力
-                        MOV	#2, (R6)+  ;; Number が出力
-                        MOV	-(R6), R0  ;; ここから ExpressionAdd
-                        MOV	-(R6), R1
+                        MOV	#7, (SP)+  ;; Number が出力
+                        MOV	#2, (SP)+  ;; Number が出力
+                        MOV	-(SP), R0  ;; ここから ExpressionAdd
+                        MOV	-(SP), R1
                         ADD	R1, R0
-                        MOV	R0, (R6)+  ;; ここまで ExpressionAdd
+                        MOV	R0, (SP)+  ;; ここまで ExpressionAdd
                     """;
             // ↑ """の横位置が先頭と考える．この場合 ADD や MOV が """" と同じか前にあると，その命令が先頭で先頭に空白やタブがない判定になる
             expressionHelper.checkCodeGen(testData, expected);
@@ -115,24 +115,24 @@ public class T00_51CodeGenTest {
                     __START:
                         MOV #0x1000,R6
                     ;; Number; ここで13を積む（このような解説コメントは入れていい）
-                        MOV	#13, (R6)+  ;; push 13
+                        MOV	#13, (SP)+  ;; push 13
                     ;; Number; 7を積む
-                        MOV	#7, (R6)+   ;; push 7
+                        MOV	#7, (SP)+   ;; push 7
                     ;; ここから，130+7 の演算  ExpressionAdd
-                        MOV	-(R6), R0   ;; pop R0 (多分7)
-                        MOV	-(R6), R1   ;; pop R1 (多分13)
+                        MOV	-(SP), R0   ;; pop R0 (多分7)
+                        MOV	-(SP), R1   ;; pop R1 (多分13)
                         ADD	R1, R0      ;; R0 += R1 (20)
-                        MOV	R0, (R6)+   ;; push R0  (20)
+                        MOV	R0, (SP)+   ;; push R0  (20)
                     ;; ここまでで，13+7 まで終わる
                     ;; ここから，20+2 の演算  ExpressionAdd
                     ;; 2を積む
-                        MOV	#2, (R6)+   ;; push 2
-                        MOV	-(R6), R0   ;; pop R0 (多分2)
-                        MOV	-(R6), R1   ;; pop R1 (多分20)
+                        MOV	#2, (SP)+   ;; push 2
+                        MOV	-(SP), R0   ;; pop R0 (多分2)
+                        MOV	-(SP), R1   ;; pop R1 (多分20)
                         ADD	R1, R0      ;; R0 += R1;  (22)
-                        MOV	R0, (R6)+   ;; push R0 (22)
+                        MOV	R0, (SP)+   ;; push R0 (22)
                     ;; これで 13+7+2 が終了
-                        MOV -(R6), R0   ;; pop R0 (22)
+                        MOV -(SP), R0   ;; pop R0 (22)
                         HLT
                         .end
                     """;
