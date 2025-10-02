@@ -113,7 +113,7 @@ public class T00_51CodeGenTest {
                         .=0x0100
                         JMP __START
                     __START:
-                        MOV #0x1000,R6
+                        MOV #0x1000,SP
                     ;; Number; ここで13を積む（このような解説コメントは入れていい）
                         MOV	#13, (SP)+  ;; push 13
                     ;; Number; 7を積む
