@@ -46,7 +46,7 @@ public class Program extends CParseRule {
 			// cgc.printLabel("ia_a: .blkw 10", "配列変数(10要素)の割当");
 
 			cgc.printLabel("__START:", "Program: ここから開始");
-			cgc.printInstCodeGen("", "MOV #0x1000, R6", "Program: SP初期化");
+			cgc.printInstCodeGen("", "MOV #0x1000, SP", "Program: SP初期化");
 
 			// program コード本体
 			program.codeGen(pcx);
