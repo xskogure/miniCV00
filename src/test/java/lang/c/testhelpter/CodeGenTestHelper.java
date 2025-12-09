@@ -106,11 +106,10 @@ public class CodeGenTestHelper<T extends CParseRule> {
         LinkedList<String> expectedForValidate = convertToValidateData(new LinkedList<String>(Arrays.asList(expected)));
         LinkedList<String> actualForValidate = convertToValidateData(new LinkedList<String>(actual));
 
-        assertThat("Actual " + actualForValidate.toString() + "  Line Size: ", actualForValidate.size(),
-                is(expectedForValidate.size()));
-
         int actualNoCommentPos = 0;
-        for (int i = 0; i < expectedForValidate.size(); i++) {
+        int checkSize = expectedForValidate.size() > actualForValidate.size() 
+                        ? actualForValidate.size() : expectedForValidate.size();
+        for (int i = 0; i < checkSize; i++) {
             String message = "Line: " + String.valueOf(i);
 
             // Remove comment area, and blank characters at the head and/or tail.
@@ -120,6 +119,9 @@ public class CodeGenTestHelper<T extends CParseRule> {
 
             assertThat(message, actualCode, is(expectedCode));
         }
+
+        assertThat("Actual " + actualForValidate.toString() + "  Line Size: ", actualForValidate.size(),
+        is(expectedForValidate.size()));
     }
 
     // Check only code portion, not validate comments
