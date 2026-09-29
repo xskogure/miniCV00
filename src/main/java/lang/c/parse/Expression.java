@@ -4,8 +4,8 @@ import lang.*;
 import lang.c.*;
 
 public class Expression extends CParseRule {
-	// 新しく非終端記号に対応するクラスを作成する際は，必ず拡張BNF をコメントでつけること
-	// また，更新する際は，拡張BNFの「履歴」を残すこと（例えば，実験３まで：．．．． と 実験４から：．．． のように）
+	// When creating a new class corresponding to a non-terminal symbol, you must always include an extended BNF in the comments.
+	// Also, when updating, retain the “history” of the extended BNF (e.g., up to Experiment 3: ······· and from Experiment 4: ·····).
 	// expression ::= term { expressionAdd | expressionSub }
 	CParseRule expression;
 
@@ -19,12 +19,13 @@ public class Expression extends CParseRule {
 	}
 
 	public void parse(CParseContext pcx) throws FatalErrorException {
-		// ここにやってくるときは、必ずisFirst()が満たされている
+		// If processing occurs here, isFirst() must be true.
 		CParseRule term = null, list = null;
-		term = new Term(pcx);
-		term.parse(pcx);
 		CTokenizer ct = pcx.getTokenizer();
 		CToken tk = ct.getCurrentToken(pcx);
+		term = new Term(pcx);
+		term.parse(pcx);
+		tk = ct.getCurrentToken(pcx);
 		while (ExpressionAdd.isFirst(tk)) {
 			list = new ExpressionAdd(pcx, term);
 			list.parse(pcx);
@@ -37,7 +38,7 @@ public class Expression extends CParseRule {
 	public void semanticCheck(CParseContext pcx) throws FatalErrorException {
 		if (expression != null) {
 			expression.semanticCheck(pcx);
-			this.setCType(expression.getCType()); // expression の型をそのままコピー
+			this.setCType(expression.getCType()); // Copy the type of the expression as-is
 			this.setConstant(expression.isConstant());
 		}
 	}

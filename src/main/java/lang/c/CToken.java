@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 public class CToken extends SimpleToken {
 
-    /* 以下は SimpleToken.java で定義されているので使えます！
-    public static final int TK_IDENT = 0; // 識別子（ラベル）
-    public static final int TK_NUM = 1; // 数値
-    public static final int TK_EOF = -1; // （ファイルの終端記号）
-    public static final int TK_ILL = -2; // 未定義トークン
+    /* The following is defined in SimpleToken.java, so you can use it!
+    public static final int TK_IDENT = 0; // Identifier (Label)
+    public static final int TK_NUM = 1; // Number
+    public static final int TK_EOF = -1; // (End-of-file marker)
+    public static final int TK_ILL = -2; // Undefined token
      */
     public static final int TK_PLUS        = 2;    // +
     // add chapter1
@@ -27,17 +27,17 @@ public class CToken extends SimpleToken {
     // add chapter4
     public static final int TK_LBRA     = 9;    // [
     public static final int TK_RBRA     = 10;   // ]
-    // public static final int TK_IDENT    = 11;   // ident はすでに SimpleToken.java で実装済み
+    // public static final int TK_IDENT    = 11;   // ident is already implemented in SimpleToken.java
 
     // add chapter5
     public static final int TK_ASSIGN     = 12;    // =
     public static final int TK_SEMI        = 13;    // ;
-    public static final int TK_INPUT    = 25;    // input (ident 経由で識別する)
-    public static final int TK_OUTPUT   = 26;    // output (ident 経由で識別する)
+    public static final int TK_INPUT    = 25;    // input (identified via ident)
+    public static final int TK_OUTPUT   = 26;    // output (identified via ident)
 
     // add chapter6
-    public static final int TK_TRUE        = 14;    // true (ident 経由で識別する)
-    public static final int TK_FALSE       = 15;    // false (ident 経由で識別する)
+    public static final int TK_TRUE        = 14;    // true (identify via ident)
+    public static final int TK_FALSE       = 15;    // false (identify via ident)
     public static final int TK_LT         = 16;    // <
     public static final int TK_GT         = 17;    // >
     public static final int TK_LE         = 18;    // <=
@@ -45,24 +45,24 @@ public class CToken extends SimpleToken {
     public static final int TK_EQ        = 20;    // ==
     public static final int TK_NE        = 21;    // !=
 
-    // true を 1 で運用する場合は以下を有効に (本実験では true は 1 固定でお願いします)
+    // When operating true as 1, enable the following (in this experiment, please keep true fixed at 1)
     public static final String TRUE_NUM = "0x0001";
 
-    // false は， 0 もしくは -1 のどちらかを採用してください
-    // false を 0 で運用する日は下記を有効にしてください．
+    // For false, please use either 0 or -1.
+    // If you are using false as 0, please enable the following.
     public static final String FALSE_NUM = "0x0000";
-    // false を -1 で運用する人は下記を有効にしてください．
+    // If you use false as -1, please enable the following.
     // public static final String FALSE_NUM = "0xFFFF";
 
     // add chapter7
-    public static final int TK_IF       = 22;    // if (ident 経由で識別する)
-    public static final int TK_ELSE     = 23;    // else (ident 経由で識別する)
-    public static final int TK_WHILE    = 24;    // while (ident 経由で識別する)
+    public static final int TK_IF       = 22;    // if (identified via ident)
+    public static final int TK_ELSE     = 23;    // else (identified via ident)
+    public static final int TK_WHILE    = 24;    // while (identified via ident)
     public static final int TK_LCUR        = 27;    // {
     public static final int TK_RCUR        = 28;    // }
 
     // add chapter8
-    // ここからは自分で追加してください．
+    // Please add your own content here.
 
     public CToken(int type, int lineNo, int colNo, String s) {
         super(type, lineNo, colNo, s);
@@ -70,13 +70,13 @@ public class CToken extends SimpleToken {
 
     private static final HashMap<Integer, String> CTOKENS = new HashMap<Integer, String>(){
         {
-            // CSimpleToken で chapter0 から
+            // CSimpleToken from chapter0
             put(TK_IDENT,"TK_IDENT");
             put(TK_NUM,"TK_NUM");
             put(TK_EOF,"TK_EOF");
             put(TK_ILL,"TK_ILL");
 
-            // CToken で chapter0 から
+            // With CToken, starting from chapter0
             put(TK_PLUS,"TK_PLUS");
             
             // add chapter1
@@ -120,7 +120,7 @@ public class CToken extends SimpleToken {
             put(TK_RCUR,"TK_RCUR");
             
             // add chapter8
-            // ここからは自分で追加してください．
+            // Please add your own content here.
 }
     };
 

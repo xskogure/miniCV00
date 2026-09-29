@@ -4,8 +4,8 @@ import lang.*;
 import lang.c.*;
 
 public class Program extends CParseRule {
-	// 新しく非終端記号に対応するクラスを作成する際は，必ず拡張BNF をコメントでつけること
-	// また，更新する際は，拡張BNFの「履歴」を残すこと（例えば，実験３まで：．．．． と 実験４から：．．． のように）
+	// When creating a new class corresponding to a non-terminal symbol, you must always include an extended BNF in the comments.
+	// Also, when updating, retain the “history” of the extended BNF (e.g., up to Experiment 3: ······· and from Experiment 4: ·····).	// expressionAdd ::= '+' term
 	// program ::= expression EOF
 	CParseRule program;
 
@@ -19,13 +19,13 @@ public class Program extends CParseRule {
 	}
 
 	public void parse(CParseContext pcx) throws FatalErrorException {
-		// ここにやってくるときは、必ずisFirst()が満たされている
+		// If processing occurs here, isFirst() must be true.
 		program = new Expression(pcx);
 		program.parse(pcx);
 		CTokenizer ct = pcx.getTokenizer();
 		CToken tk = ct.getCurrentToken(pcx);
-		if (tk.getType() != CToken.TK_EOF) {
-			pcx.fatalError(tk.toExplainString() + "プログラムの最後にゴミがあります");
+		if (!tk.is(CToken.TK_EOF)) {
+			pcx.fatalError(tk, "Garbage at the end of the program.");
 		}
 	}
 
@@ -39,22 +39,24 @@ public class Program extends CParseRule {
 		CodeGenCommon cgc = pcx.getCodeGenCommon();
 		if (program != null) {
 			cgc.printStartComment(getBNF(getId()));
-			cgc.printInstCodeGen("", ".= 0x0100", "Program: 開始番地");
-			cgc.printInstCodeGen("", "JMP __START", "Program: __STARTに飛ぶ");
-			// ここには将来、変数宣言に対するコード生成が必要
-			// cgc.printLabel("i_a: .word 100", "通常変数(1word)割当と初期化");
-			// cgc.printLabel("ia_a: .blkw 10", "配列変数(10要素)の割当");
+			// program header code
+			cgc.printInstCodeGen("", ".= 0x0100", getClassName() + ": start address");
+			cgc.printInstCodeGen("", "JMP __START", getClassName() + ": jump to __START");
 
-			cgc.printLabel("__START:", "Program: ここから開始");
-			cgc.printInstCodeGen("", "MOV #0x1000, SP", "Program: SP初期化");
+			// This section will eventually require code generation for variable declarations.
+			// cgc.printLabel("i_a: .word 100", "Allocation and Initialization of Regular Variables (1 word)");
+			// cgc.printLabel("ia_a: .blkw 10", "Assignment of an array variable (10 elements)");
 
-			// program コード本体
+			cgc.printLabel("__START:", getClassName() + ": start label");
+			cgc.printInstCodeGen("", "MOV #0x1000, SP", getClassName() + ": initializing SP");
+
+			// program code body
 			program.codeGen(pcx);
 
-			// program 最後コード
-			cgc.printPopCodeGen("", "R0", "Program: 計算結果をR0に取り出す(計算結果確認用)");
-			cgc.printInstCodeGen("", "HLT\t", "Program:");
-			cgc.printInstCodeGen("", ".end\t", "Program:");
+			// program footer code
+			cgc.printPopCodeGen("", "R0", getClassName() + ": Move the calculation result to R0 (for checking the result).");
+			cgc.printInstCodeGen("", "HLT\t", getClassName() + ": HALT");
+			cgc.printInstCodeGen("", ".end\t", getClassName() + ": ");
 			cgc.printCompleteComment(getBNF(getId()));
 		}
 	}

@@ -52,6 +52,13 @@ public class IOContext {
 		}
 	}
 
+	// public String[] getProgramStrings() {
+	// 	if (this.inputFileName.equals("FROM_TESTCASE")) {
+	// 		if (this.in instanceof In)
+	// 		return ((InputStreamForTest)this.in);
+	// 	}
+	// }
+
 	public void allClose() {
 		try {
 			if (in != null) {

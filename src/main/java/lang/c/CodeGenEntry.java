@@ -1,7 +1,7 @@
 package lang.c;
 
 /**
- * codeGen()一行分のデータ管理クラス
+ * codeGen() single-line data management class
  */
 public class CodeGenEntry {
     private String label="";
@@ -29,8 +29,8 @@ public class CodeGenEntry {
     public final static int COMMENT    = 2;  // ;;; comment;
     public final static int INST       = 3;  // hlt, nop, ret, mov, jmp, clr, .=NUM , .end,  .word NUMLIST, .blkw NUMLIST
 
-    // label は "LABEL:" を全部入力すること．こちらでは余計な文字は一切追加しない．
-    // 通常命令 (OpeCode と Operand をすべて手動で入れる)
+    // Enter the entire “LABEL:” for the label. Do not add any extra characters here.
+    // Manual Instruction (Enter all OpeCodes and Operands manually)
     public CodeGenEntry(int type, String label, String opeCodeAndOperand, String comment){
         this.type = type;
         this.label = label;
@@ -38,7 +38,7 @@ public class CodeGenEntry {
         this.comment = comment;
     }
 
-    // label は "LABEL:" ないしは "LABEL = (LABEL|NUM)" を全部入力すること．こちらでは余計な文字は一切追加しない．
+    // Enter the entire “LABEL:” or “LABEL = (LABEL|NUM)” label. Do not add any extra characters here.
     public CodeGenEntry(int type, String str){
         this.type = type;
         if (type == CodeGenEntry.COMMENT) {
@@ -77,12 +77,12 @@ public class CodeGenEntry {
         }
     }
 
-    // for INST (PSEUDOINST も含む)
+    // for INST (include PSEUDOINST)
     public String codeGenInst() {
         return label + "\t" + opeCodeAndOperand + "\t; " + comment;
     }
 
-    // label は "LABEL:" ないしは "LABEL = (LABEL|NUM)" を全部入力すること．こちらでは余計な文字は一切追加しない．
+    // Enter the entire label as “LABEL:” or “LABEL = (LABEL|NUM)”. Do not add any extra characters here.
     public String codeGenLabel() {
         return label + "\t\t\t; " + comment;
     }

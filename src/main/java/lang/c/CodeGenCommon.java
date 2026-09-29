@@ -3,13 +3,18 @@ package lang.c;
 import java.io.PrintStream;
 
 /**
- * CodeGen 出力用
+ * for output of CodeGen
  */
 public class CodeGenCommon {
     private PrintStream output;
+    private boolean isComment = true;
 
     CodeGenCommon(PrintStream ps) {
         this.output = ps;
+    }
+
+    public void setComment(boolean isComment) {
+        this.isComment = isComment;
     }
 
     public void codeGenAll(String cl, CodeGenEntry[] cgeList) {
@@ -27,8 +32,10 @@ public class CodeGenCommon {
         comment(cl + " complete.");
     }
     public void comment(String cl) {
-        CodeGenEntry co = new CodeGenEntry(CodeGenEntry.COMMENT, cl);
-        output.println(co.codeGen());
+        if (isComment) {
+           CodeGenEntry co = new CodeGenEntry(CodeGenEntry.COMMENT, cl);
+            output.println(co.codeGen());
+        }
     }
 
     public void printPushCodeGen(String label, String op, String comment) {
@@ -54,8 +61,10 @@ public class CodeGenCommon {
     }
     
     public void printComment(String comment) {
-        CodeGenEntry cge = new CodeGenEntry(CodeGenEntry.COMMENT, comment);
-        output.println(cge.codeGen());
+        if (isComment) {
+            CodeGenEntry cge = new CodeGenEntry(CodeGenEntry.COMMENT, comment);
+            output.println(cge.codeGen());
+        }
     }
 
 }

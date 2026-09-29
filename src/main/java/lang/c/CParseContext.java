@@ -6,11 +6,17 @@ import lang.*;
 
 public class CParseContext extends ParseContext {
 	CodeGenCommon cgc;
+	boolean isComment = true;
 
 	HashMap<String,Integer> seqHashMap = new HashMap<String,Integer>();
 	public CParseContext(IOContext ioCtx,  CTokenizer tknz) {
 		super(ioCtx, tknz);
 		this.cgc = new CodeGenCommon(ioCtx.getOutStream());
+	}
+
+	public void setComment(boolean isComment) {
+		this.isComment = isComment;
+		cgc.setComment(isComment);
 	}
 
 	@Override

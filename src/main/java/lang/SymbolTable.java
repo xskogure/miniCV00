@@ -17,7 +17,7 @@ public abstract class SymbolTable<E extends SymbolTableEntry> extends HashMap<St
 			String label = i.next();
 			E e = get(label);
 			if (e == null) {
-				System.out.println(label + "\t= (null) [未定義]");
+				System.out.println(label + "\t= (null) [undefined]");
 			} else {
 				System.out.println(label + "\t= " + e.toExplainString());
 			}

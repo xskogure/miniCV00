@@ -5,15 +5,15 @@ import java.util.HashMap;
 import lang.*;
 
 public abstract class CParseRule extends ParseRule<CParseContext> implements lang.Compiler<CParseContext>, LL1<CToken> {
-	static private int ID = 0;  // 全 CParseRule の連番ID管理
-	// クラスごとの連番ID管理
+	static private int ID = 0;  // Sequential ID Management for All CParseRule
+	// Class-based sequential ID management
 	static private HashMap<String,Integer> IDMAP = new HashMap<String,Integer>();    
-	
-	private int id;             // 新規作成の CParseRule インスタンスの番号
-	private String BNF_LEFT;    // この接点の非終端記号名(BFN左)
-	private String BNF_RIGHT;   // この接点の変換規則(BFN右)
-	private CType ctype;        // この節点の（推測される）型
-	private boolean isConstant; // この節点は定数を表しているか？
+	private String name;        // For non-terminal symbol name reservation
+	private int id;             // Number of newly created CParseRule instances
+	private String BNF_LEFT;    // Non-terminating symbol name for this contact (BFN left)
+	private String BNF_RIGHT;   // This contact conversion rule (BFN right)
+	private CType ctype;        // The (presumed) type of this node
+	private boolean isConstant; // Does this node represent a constant?
 
 	public CParseRule() {
 		ID++;
@@ -27,6 +27,7 @@ public abstract class CParseRule extends ParseRule<CParseContext> implements lan
 		}
 		IDMAP.put(name,r);
 		id = r;
+		this.name = name;
 	}
 
 	public String getBNF() {
@@ -76,5 +77,13 @@ public abstract class CParseRule extends ParseRule<CParseContext> implements lan
 
 	public boolean isConstant() {
 		return isConstant;
+	}
+
+	public String getClassName() {
+		return name;
+	}
+
+	public String getMethodName() {
+		return Thread.currentThread().getStackTrace()[1].getMethodName();
 	}
 }

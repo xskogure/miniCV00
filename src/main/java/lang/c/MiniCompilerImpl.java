@@ -5,20 +5,21 @@ import lang.IOContext;
 import lang.c.parse.Program;
 
 public class MiniCompilerImpl {
-    void compile(IOContext ioContext) {
+    void compile(IOContext ioContext, boolean isComment) {
         CTokenizer tknz = new CTokenizer(new CTokenRule());
 		CParseContext pcx = new CParseContext(ioContext, tknz);
+		pcx.setComment(isComment);
 		try {
 			CTokenizer ct = pcx.getTokenizer();
 			CToken tk = ct.getNextToken(pcx);
 			if (Program.isFirst(tk)) {
 				CParseRule parseTree = new Program(pcx);
-				parseTree.parse(pcx);									// 構文解析
-				if (pcx.hasNoError()) parseTree.semanticCheck(pcx);		// 意味解析
-				if (pcx.hasNoError()) parseTree.codeGen(pcx);			// コード生成
+				parseTree.parse(pcx);									// parsing
+				if (pcx.hasNoError()) parseTree.semanticCheck(pcx);		// semantic analysis
+				if (pcx.hasNoError()) parseTree.codeGen(pcx);			// generating code
 				pcx.errorReport();
 			} else {
-				pcx.fatalError(tk.toExplainString() + "プログラムの先頭にゴミがあります");
+				pcx.fatalError(tk + ": Garbage at the start of the program. ");
 			}
 		} catch (FatalErrorException e) {
 			e.printStackTrace();

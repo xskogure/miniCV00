@@ -4,8 +4,8 @@ import lang.*;
 import lang.c.*;
 
 public class Term extends CParseRule {
-	// 新しく非終端記号に対応するクラスを作成する際は，必ず拡張BNF をコメントでつけること
-	// また，更新する際は，拡張BNFの「履歴」を残すこと（例えば，実験３まで：．．．． と 実験４から：．．． のように）
+	// When creating a new class corresponding to a non-terminal symbol, you must always include an extended BNF in the comments.
+	// Also, when updating, retain the “history” of the extended BNF (e.g., up to Experiment 3: ······· and from Experiment 4: ·····).	// expressionAdd ::= '+' term
 	// term ::= factor
 	CParseRule factor;
 
@@ -19,7 +19,7 @@ public class Term extends CParseRule {
 	}
 
 	public void parse(CParseContext pcx) throws FatalErrorException {
-		// ここにやってくるときは、必ずisFirst()が満たされている
+		// If processing occurs here, isFirst() must be true.
 		factor = new Factor(pcx);
 		factor.parse(pcx);
 	}
@@ -27,7 +27,7 @@ public class Term extends CParseRule {
 	public void semanticCheck(CParseContext pcx) throws FatalErrorException {
 		if (factor != null) {
 			factor.semanticCheck(pcx);
-			this.setCType(factor.getCType()); // factor の型をそのままコピー
+			this.setCType(factor.getCType()); // Copy the type of factor as-is
 			this.setConstant(factor.isConstant());
 		}
 	}

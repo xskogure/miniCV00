@@ -1,0 +1,5 @@
+Token=[1 lines,1 column: '2'] type=TK_NUM [1] valule=2
+Token=[1 lines,2 column: '+'] type=TK_PLUS [2]
+Token=[1 lines,3 column: '3'] type=TK_NUM [1] valule=3
+Token=[1 lines,4 column: '+'] type=TK_PLUS [2]
+Token=[1 lines,5 column: '3'] type=TK_NUM [1] valule=3
