@@ -6,23 +6,68 @@
     "configurations": [
         {
             "type": "java",
-            "name": "MiniCompiler",
-            "request": "launch",
-            "mainClass": "lang.c.MiniCompiler",
-            "projectName": "minicv",
-            "args": [
-                "src\\main\\java\\lang\\c\\test.c"
-            ]
-        },
-        {
-            "type": "java",
             "name": "TestCToken",
             "request": "launch",
             "mainClass": "lang.c.TestCToken",
             "projectName": "minicv",
             "args": [
-                "src\\main\\java\\lang\\c\\test.c"
+                "src\\main\\java\\lang\\c\\test.txt"
             ]
+        },
+        {
+            "type": "java",
+            "name": "TC to File",
+            "request": "launch",
+            "mainClass": "lang.c.TestCToken",
+            "projectName": "minicv",
+            "args": [
+                "src\\main\\java\\lang\\c\\test.txt",
+                ">",
+                "src\\main\\java\\lang\\c\\tokenizerResult.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "MiniCompiler",
+            "request": "launch",
+            "mainClass": "lang.c.MiniCompiler",
+            "projectName": "minicv",
+            "args": [
+                "src\\main\\java\\lang\\c\\test.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "MC no comment",
+            "request": "launch",
+            "mainClass": "lang.c.MiniCompiler",
+            "projectName": "minicv",
+            "args": [
+                "-noComment",
+                "src\\main\\java\\lang\\c\\test.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "MC output **.s",
+            "request": "launch",
+            "mainClass": "lang.c.MiniCompiler",
+            "projectName": "minicv",
+            "args": [
+                "-noComment",
+                "src\\main\\java\\lang\\c\\test.txt",
+                ">",
+                "simuTest\\${input:assemble-filename}"
+            ]
+        }
+ 
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "assemble-filename",
+            "description": "Input saved codeset file .s name.",
+            "default": "cv01-01.s"
         }
     ]
 }

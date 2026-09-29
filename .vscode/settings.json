@@ -16,5 +16,6 @@
         "**/Thumbs.db": true,
         "kokokonolabs-log/": true
     },
-    "maven.view": "flat"
+    "maven.view": "flat",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt" 
 }
