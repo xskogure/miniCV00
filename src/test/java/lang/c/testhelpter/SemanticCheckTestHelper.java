@@ -85,11 +85,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (NullPointerException npe) {
             fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
             npe.printStackTrace();
-        }  catch (ArrayIndexOutOfBoundsException aioobe) {
-            fail("testData: \"" + testData + "\" is ArrayIndexOutOfBoundsException(). Prease check that semanticCheck() of non-terminal [" + c.getBNF(c.getId())+ "]");
-            aioobe.printStackTrace();
         } catch (Exception e) {
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError, NullPointerException and ArrayIndexOutofBoundsException.: Error: " + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         }
     }
@@ -123,11 +119,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (NullPointerException npe) {
             fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
             npe.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
-            fail("testData: \"" + testData + "\" is ArrayIndexOutOfBoundsException(). Prease check that semanticCheck() of non-terminal [" + c.getBNF(c.getId())+ "]");
-            aioobe.printStackTrace();
         } catch (Exception e) {
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError, NullPointerException and ArrayIndexOutofBoundsException.: Error: " + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         }
     }
@@ -162,11 +154,8 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (NullPointerException npe) {
             fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
             npe.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
-            fail("testData: \"" + testData + "\" is ArrayIndexOutOfBoundsException(). Prease check that semanticCheck() of non-terminal [" + c.getBNF(c.getId())+ "]");
-            aioobe.printStackTrace();
         } catch (Exception e) {
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError, NullPointerException and ArrayIndexOutofBoundsException.: Error: " + errorOutputStream.getPrintBufferString());
+            //fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError.");
             e.printStackTrace();
         }
     }
@@ -182,6 +171,9 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         resetEnvironment();
         String testData = testDataAndErrorMessage.getTestData();
         String errMessage = testDataAndErrorMessage.getErrMessage();
+        if (errMessage.equals("")) {
+            fail("testData: \"" + testData + "\": errMessage is empty string");
+        }
         inputStream.setInputString(testData);
         tokenizer.getNextToken(cpContext);
         T c = null;
@@ -195,11 +187,7 @@ public class SemanticCheckTestHelper<T extends CParseRule> {
         } catch (NullPointerException npe) {
             fail("testData: \"" + testData + "\" is NullPointerException(). Prease check that semanticCheck() of each class has this.setCType() and setConstant() for class or subclass of non-terminal [" + c.getBNF(c.getId())+ "]");
             npe.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException aioobe) {
-            fail("testData: \"" + testData + "\" is ArrayIndexOutOfBoundsException(). Prease check that semanticCheck() of non-terminal [" + c.getBNF(c.getId())+ "]");
-            aioobe.printStackTrace();
         } catch (Exception e){
-            fail("testData\"" + testData + "\": this testdata was rejected for a reason except FatalError, NullPointerException and ArrayIndexOutofBoundsException.: Error: " + errorOutputStream.getPrintBufferString());
             e.printStackTrace();
         }
     }

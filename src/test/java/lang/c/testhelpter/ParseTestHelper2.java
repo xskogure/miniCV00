@@ -118,6 +118,9 @@ public class ParseTestHelper2<F extends CParseRule,T extends CParseRule> {
         resetEnvironment();
         String testData = testDataAndErrorMessage.getTestData();
         String errMessage = testDataAndErrorMessage.getErrMessage();
+        if (errMessage.equals("")) {
+            fail("testData: \"" + testData + "\": errMessage is empty string");
+        }
         inputStream.setInputString(testData);
         CToken tk = tokenizer.getNextToken(cpContext);
         try {

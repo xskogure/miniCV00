@@ -14,124 +14,124 @@ public class T00_31IsFirstTest {
         // Test that each class's isFirst() is valid
         // Distant future, you should add necessary test cases to each Test code.
 
-        IsFirstTestHelper<Number> numberHelper = new IsFirstTestHelper<Number>(Number.class);
+        IsFirstTestHelper<Number> helper = new IsFirstTestHelper<>(Number.class);
 
         // 個別正当例
         @Test
         public void accept() throws FatalErrorException {
-            numberHelper.trueTest("1");
-            numberHelper.trueTest("12");
+            helper.trueTest("1");
+            helper.trueTest("12");
         }
 
         // リスト正当例
         @Test
         public void acceptList() throws FatalErrorException {
             String[] testDataArr = { "13", "11+2" };
-            numberHelper.trueListTest(testDataArr);
+            helper.trueListTest(testDataArr);
         }
 
         // 個別不当例
         @Test
         public void reject() throws FatalErrorException {
-            numberHelper.falseTest("@2");
-            numberHelper.falseTest("+");
+            helper.falseTest("@2");
+            helper.falseTest("+");
         }
 
         // リスト不当例
         @Test
         public void rejectList() throws FatalErrorException {
             String[] testDataArr = { "@2", "+" };
-            numberHelper.falseListTest(testDataArr);
+            helper.falseListTest(testDataArr);
         }
 
         // 個別正当不当混在例
         @Test
         public void numberFail() throws FatalErrorException {
-            numberHelper.test("1", true);
-            numberHelper.test("32", true);
-            numberHelper.test("+", false);
-            numberHelper.test("@", false);
+            helper.test("1", true);
+            helper.test("32", true);
+            helper.test("+", false);
+            helper.test("@", false);
         }
     }
 
     public static class TermTest {
-        IsFirstTestHelper<Term> termHelper = new IsFirstTestHelper<Term>(Term.class);
+        IsFirstTestHelper<Term> helper = new IsFirstTestHelper<>(Term.class);
 
         @Test
         public void term() throws FatalErrorException {
             String[] testDataArr = { "13", "11+2" };
-            termHelper.trueListTest(testDataArr);
+            helper.trueListTest(testDataArr);
         }
 
         @Test
         public void termFail() throws FatalErrorException {
             String[] testDataArr = { "@2+2", "=" };
-            termHelper.falseListTest(testDataArr);
+            helper.falseListTest(testDataArr);
         }
     }
 
     public static class FactorTest {
-        IsFirstTestHelper<Factor> factorHelper = new IsFirstTestHelper<Factor>(Factor.class);
+        IsFirstTestHelper<Factor> helper = new IsFirstTestHelper<>(Factor.class);
 
         @Test
         public void factor() throws FatalErrorException {
             String[] testDataArr = { "13", "11+2" };
-            factorHelper.trueListTest(testDataArr);
+            helper.trueListTest(testDataArr);
         }
 
         @Test
         public void factorFail() throws FatalErrorException {
             String[] testDataArr = { "@2+2", "=" };
-            factorHelper.falseListTest(testDataArr);
+            helper.falseListTest(testDataArr);
         }
     }
 
     public static class ExpressionAddTest {
-        IsFirstTestHelper<ExpressionAdd> expressionAddHelper = new IsFirstTestHelper<ExpressionAdd>(
+        IsFirstTestHelper<ExpressionAdd> helper = new IsFirstTestHelper<>(
                 ExpressionAdd.class);
 
         @Test
         public void expressionAdd() throws FatalErrorException {
             String[] testDataArr = { "+13" };
-            expressionAddHelper.trueListTest(testDataArr);
+            helper.trueListTest(testDataArr);
         }
 
         @Test
         public void expressionAddFail() throws FatalErrorException {
             String[] testDataArr = { "2+2", "=" };
-            expressionAddHelper.falseListTest(testDataArr);
+            helper.falseListTest(testDataArr);
         }
     }
 
     public static class ExpressionTest {
-        IsFirstTestHelper<Expression> expressionHelper = new IsFirstTestHelper<Expression>(Expression.class);
+        IsFirstTestHelper<Expression> helper = new IsFirstTestHelper<>(Expression.class);
 
         @Test
         public void expression() throws FatalErrorException {
             String[] testDataArr = { "13", "11+2" };
-            expressionHelper.trueListTest(testDataArr);
+            helper.trueListTest(testDataArr);
         }
 
         @Test
         public void expressionFail() throws FatalErrorException {
             String[] testDataArr = { "+2", "=" };
-            expressionHelper.falseListTest(testDataArr);
+            helper.falseListTest(testDataArr);
         }
     }
 
     public static class ProgramTest {
-        IsFirstTestHelper<Program> programHelper = new IsFirstTestHelper<Program>(Program.class);
+        IsFirstTestHelper<Program> helper = new IsFirstTestHelper<>(Program.class);
 
         @Test
         public void program() throws FatalErrorException {
             String[] testDataArr = { "13", "11+2" };
-            programHelper.trueListTest(testDataArr);
+            helper.trueListTest(testDataArr);
         }
 
         @Test
         public void programFail() throws FatalErrorException {
             String[] testDataArr = { "+2", "=" };
-            programHelper.falseListTest(testDataArr);
+            helper.falseListTest(testDataArr);
         }
     }
 }

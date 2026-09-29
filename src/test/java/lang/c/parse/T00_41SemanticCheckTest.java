@@ -16,27 +16,27 @@ public class T00_41SemanticCheckTest {
     
     
     public static class numberTest {
-        SemanticCheckTestHelper<Number> numberHelper = new SemanticCheckTestHelper<Number>(Number.class);
+        SemanticCheckTestHelper<Number> helper = new SemanticCheckTestHelper<>(Number.class);
         
         // 一個ずつのacceptテスト
         @Test
         public void accept() throws FatalErrorException {
-            numberHelper.acceptTest("1");
-            numberHelper.acceptTest("2");
+            helper.acceptTest("1");
+            helper.acceptTest("2");
         }
 
         // リストを渡すacceptテスト
         @Test
         public void acceptList() throws FatalErrorException {
             String[] testDataArr = {"3", "4"};
-            numberHelper.acceptListTest(testDataArr);
+            helper.acceptListTest(testDataArr);
         }
 
         // 一個ずつの typeテスト
         @Test
         public void type() throws FatalErrorException {
-            numberHelper.typeTest("30000", CType.T_int);
-            numberHelper.typeTest("0177", CType.T_int);
+            helper.typeTest("30000", CType.T_int);
+            helper.typeTest("0177", CType.T_int);
         }
 
         // リストを渡す typeテスト
@@ -46,19 +46,19 @@ public class T00_41SemanticCheckTest {
                 new TestDataAndCType("4", CType.T_int),
                 new TestDataAndCType("0x0100", CType.T_int),
             };
-            numberHelper.typeListTest(ttList);
+            helper.typeListTest(ttList);
         }
 
     }
 
     public static class ExpressionTest {
-        SemanticCheckTestHelper<Expression> expressionHelper = new SemanticCheckTestHelper<Expression>(Expression.class);
+        SemanticCheckTestHelper<Expression> helper = new SemanticCheckTestHelper<>(Expression.class);
 
         // 個別テスト (エラーが出ないことのテスト)
         @Test
         public void accept() throws FatalErrorException{
             String testData = "33+44+55+66";
-            expressionHelper.acceptTest(testData);
+            helper.acceptTest(testData);
         }
         
         // リストテスト (エラーが出ないことのテスト)
@@ -70,14 +70,14 @@ public class T00_41SemanticCheckTest {
                 "1#",        // 1 まで解釈されて accept
                 "1020@@@@"   // 10120 まで解釈されて accept
             };
-            expressionHelper.acceptListTest(testDataArr);
+            helper.acceptListTest(testDataArr);
         }
 
         // 個別型テスト
         @Test
         public void type() throws FatalErrorException{
-            expressionHelper.typeTest("1+3", CType.T_int);
-            expressionHelper.typeTest("1+3+5", CType.T_int);
+            helper.typeTest("1+3", CType.T_int);
+            helper.typeTest("1+3+5", CType.T_int);
         }
     
         // リスト型テスト
@@ -87,7 +87,7 @@ public class T00_41SemanticCheckTest {
                 new TestDataAndCType("2+3", CType.T_int),
                 new TestDataAndCType("1+2+3+4+5", CType.T_int)
             };
-            expressionHelper.typeListTest(ttList);
+            helper.typeListTest(ttList);
         }
     
     }
@@ -120,11 +120,12 @@ public class T00_41SemanticCheckTest {
         @Test
         public void reject() throws FatalErrorException{
             // このテストは結局 parse() のエラーをチェックしているに過ぎない．
-            TestDataAndErrMessage te1 = new TestDataAndErrMessage("1+3@@@@@", "プログラムの最後にゴミがあります");
-            TestDataAndErrMessage te2 = new TestDataAndErrMessage("1234+", "'+' の後ろには Term が必要です");
+            TestDataAndErrMessage te1 = new TestDataAndErrMessage("1+3@@@@@", "Garbage at the end of the program.");
+            TestDataAndErrMessage te2 = new TestDataAndErrMessage("1234+", "expected non-terminal 'Term' after '+' token.");
 
             programHelper.rejectTest(te1);
             programHelper.rejectTest(te2);
+
         }
 
         /*
@@ -136,8 +137,9 @@ public class T00_41SemanticCheckTest {
         public void rejectList() throws FatalErrorException{
             // このテストは結局 parse() のエラーをチェックしているに過ぎない．
             TestDataAndErrMessage[] teList = {
-                new TestDataAndErrMessage("1+3@@@@@", "プログラムの最後にゴミがあります"),
-                new TestDataAndErrMessage("1+", "'+' の後ろには Term が必要です")
+                new TestDataAndErrMessage("1+3@@@@@", "Garbage at the end of the program."),
+                new TestDataAndErrMessage("1+", "expected non-terminal 'Term' after '+' token."),
+                new TestDataAndErrMessage("1+", "")
             }; 
             programHelper.rejectListTest(teList);
         }

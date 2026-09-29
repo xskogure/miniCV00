@@ -17,6 +17,11 @@ public class InputStreamForTest extends InputStream {
         return inputString.substring(pos, inputString.length());
     }
 
+    public String getString() {
+        return inputString;
+    }
+
+    
     public int getPos() {
         return pos;
     }

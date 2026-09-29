@@ -122,12 +122,15 @@ public class ParseTestHelper<T extends CParseRule> {
         resetEnvironment();
         String testData = testDataAndErrorMessage.getTestData();
         String errMessage = testDataAndErrorMessage.getErrMessage();
+        if (errMessage.equals("")) {
+            fail("testData: \"" + testData + "\": errMessage is empty string");
+        }
         inputStream.setInputString(testData);
         CToken tk = tokenizer.getNextToken(cpContext);
         try {
             T rule = con.newInstance(cpContext);
             if (!((boolean)isFirst.invoke(null, tk)))
-                cpContext.fatalError("isFirst() が false です");
+                cpContext.fatalError("isFirst() is false.");
             rule.parse(cpContext);
             fail("This unjustified testData\"" + testData + "\" should have been rejected, but was accepted.\nIf the test data is unjustified data, you should fix the parse() of the class under test.\nIf the test data is valid data, you should test this test data using parseAcceptTestList() instead of parseRejectTestList().");
         } catch (FatalErrorException fee) {
