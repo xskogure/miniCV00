@@ -5,6 +5,7 @@
 * 実行とデバッグ(三角形と虫のマーク)から，"MC output **.s" を選んで実行
 * input field に 保存するファイル名を指定して Enter を押す．
 * 指定したファイルは，simuTest フォルダの中に保存される
+* simTest フォルダの中に cv?? というフォルダを作っておき，cv01\00.s のように指定することを想定している
 
 ## 1. ターミナルを「コマンドプロンプト」で起動する
 
@@ -19,7 +20,7 @@
 
 ```bash
 \miniCV??> cd simuTest
-\miniCV??\simuTest> asm.bat check??-??.a
+\miniCV??\simuTest> asm.bat cv??\check??-??.a
 ```
 
 実行すると，指定したファイルの拡張子をbinにしたファイルが生成され，.binの中身がターミナルに出力される．
