@@ -67,7 +67,7 @@
             "type": "promptString",
             "id": "assemble-filename",
             "description": "Input saved codeset file .s name.",
-            "default": "cv01-01.s"
+            "default": "cv00\\check01.s"
         }
     ]
 }
