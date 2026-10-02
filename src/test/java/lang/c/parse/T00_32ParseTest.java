@@ -115,7 +115,6 @@ public class T00_32ParseTest {
                 // new TestDataAndErrMessage("1", "これは正当例なのでこのデータのテストは失敗します"),
                 //new TestDataAndErrMessage("1+2-3", "TK_EOF"),
                 new TestDataAndErrMessage("1+", "expected non-terminal 'Term' after '+' token."),
-                new TestDataAndErrMessage("1+", ""),
         };
         helper.parseRejectListTest(arr);
         }
