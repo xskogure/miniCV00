@@ -139,7 +139,6 @@ public class T00_41SemanticCheckTest {
             TestDataAndErrMessage[] teList = {
                 new TestDataAndErrMessage("1+3@@@@@", "Garbage at the end of the program."),
                 new TestDataAndErrMessage("1+", "expected non-terminal 'Term' after '+' token."),
-                new TestDataAndErrMessage("1+", "")
             }; 
             programHelper.rejectListTest(teList);
         }
