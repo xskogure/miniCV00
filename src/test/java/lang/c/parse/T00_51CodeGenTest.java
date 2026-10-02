@@ -13,7 +13,7 @@ public class T00_51CodeGenTest {
 
     // Test for "cv00"
     public static class NumberTest {
-        CodeGenTestHelper<Number> numberHelper = new CodeGenTestHelper<Number>(Number.class);
+        CodeGenTestHelper<Number> helper = new CodeGenTestHelper<Number>(Number.class);
 
         @Test
         public void number0() throws FatalErrorException {
@@ -30,12 +30,12 @@ public class T00_51CodeGenTest {
                     MOV #1, (SP)+   ;; Number で出力
                     """;
                     */
-            numberHelper.checkCodeGen(testData, expected);
+            helper.checkCodeGen(testData, expected);
         }
     }
 
     public static class FactorTest {
-        CodeGenTestHelper<Factor> factorHelper = new CodeGenTestHelper<Factor>(Factor.class);
+        CodeGenTestHelper<Factor> helper = new CodeGenTestHelper<Factor>(Factor.class);
 
         @Test
         public void factor0() throws FatalErrorException {
@@ -46,12 +46,12 @@ public class T00_51CodeGenTest {
                         MOV #1, (SP)+   ;; Number で出力
                     """;
             // ↑ """の横位置が先頭と考える．コード・擬似コードは先頭に空白やタブが必要なことを思い出そう
-            factorHelper.checkCodeGen(testData, expected);
+            helper.checkCodeGen(testData, expected);
         }
     }
 
     public static class TermTest {
-        CodeGenTestHelper<Term> termHelper = new CodeGenTestHelper<Term>(Term.class);
+        CodeGenTestHelper<Term> helper = new CodeGenTestHelper<Term>(Term.class);
 
         @Test
         public void term0() throws FatalErrorException {
@@ -62,7 +62,7 @@ public class T00_51CodeGenTest {
                         MOV #1, (SP)+ ;; SP=R6
                     """;
             // ↑ """の横位置が先頭と考える．コード・擬似コードは先頭に空白やタブが必要なことを思い出そう
-            termHelper.checkCodeGen(testData, expected);
+            helper.checkCodeGen(testData, expected);
         }
 
         // これは失敗するはず・Ignoreアノテーションをコメントにして，エラーを確認したら Ignoreアノテーションを有効に戻しておいてください
@@ -76,12 +76,12 @@ public class T00_51CodeGenTest {
                     MOV #1, (SP)+  ;; SP=R6
                     """;
             // ↑ """の横位置が先頭と考える．この場合 MOV の前に空白やタブがない判定になるためこのテストは失敗する
-            termHelper.checkCodeGen(testData, expected);
+            helper.checkCodeGen(testData, expected);
         }
     }
 
     public static class ExpressionTest {
-        CodeGenTestHelper<Expression> expressionHelper = new CodeGenTestHelper<Expression>(Expression.class);
+        CodeGenTestHelper<Expression> helper = new CodeGenTestHelper<Expression>(Expression.class);
 
         @Test
         public void expression0() throws FatalErrorException {
@@ -96,13 +96,13 @@ public class T00_51CodeGenTest {
                         MOV	R0, (SP)+  ;; ここまで ExpressionAdd
                     """;
             // ↑ """の横位置が先頭と考える．この場合 ADD や MOV が """" と同じか前にあると，その命令が先頭で先頭に空白やタブがない判定になる
-            expressionHelper.checkCodeGen(testData, expected);
+            helper.checkCodeGen(testData, expected);
         }
     }
 
     public static class ProgramTest {
 
-        CodeGenTestHelper<Program> programHelper = new CodeGenTestHelper<Program>(Program.class);
+        CodeGenTestHelper<Program> helper = new CodeGenTestHelper<Program>(Program.class);
 
         @Test
         public void program0() throws FatalErrorException {
@@ -140,7 +140,7 @@ public class T00_51CodeGenTest {
             // ラベルは行先頭から書かないといけないこと．コード・擬似コードは先頭に空白やタブが必要なことを思い出そう
 
             // Check only code portion, not validate comments
-            programHelper.checkCodeGen(testData, expected);
+            helper.checkCodeGen(testData, expected);
         }
     }
 }
