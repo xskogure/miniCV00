@@ -93,13 +93,13 @@ public class T00_41SemanticCheckTest {
     }
 
     public static class ProgramTest {
-        SemanticCheckTestHelper<Program> programHelper = new SemanticCheckTestHelper<Program>(Program.class);
+        SemanticCheckTestHelper<Program> helper = new SemanticCheckTestHelper<Program>(Program.class);
 
         // 個別acceptテスト
         @Test
         public void accept() throws FatalErrorException{
-            programHelper.acceptTest("1+3");
-            programHelper.acceptTest("321+123");
+            helper.acceptTest("1+3");
+            helper.acceptTest("321+123");
         }
     
         // リストacceptテスト
@@ -109,7 +109,7 @@ public class T00_41SemanticCheckTest {
                 "1+3",
                 "332+123"
             };
-            programHelper.acceptListTest(testDataArr);
+            helper.acceptListTest(testDataArr);
         }
     
         /*
@@ -123,8 +123,8 @@ public class T00_41SemanticCheckTest {
             TestDataAndErrMessage te1 = new TestDataAndErrMessage("1+3@@@@@", "Garbage at the end of the program.");
             TestDataAndErrMessage te2 = new TestDataAndErrMessage("1234+", "expected non-terminal 'Term' after '+' token.");
 
-            programHelper.rejectTest(te1);
-            programHelper.rejectTest(te2);
+            helper.rejectTest(te1);
+            helper.rejectTest(te2);
 
         }
 
@@ -140,7 +140,7 @@ public class T00_41SemanticCheckTest {
                 new TestDataAndErrMessage("1+3@@@@@", "Garbage at the end of the program."),
                 new TestDataAndErrMessage("1+", "expected non-terminal 'Term' after '+' token."),
             }; 
-            programHelper.rejectListTest(teList);
+            helper.rejectListTest(teList);
         }
     }
 }
