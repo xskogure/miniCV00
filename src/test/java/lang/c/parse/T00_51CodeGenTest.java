@@ -13,7 +13,7 @@ public class T00_51CodeGenTest {
 
     // Test for "cv00"
     public static class NumberTest {
-        CodeGenTestHelper<Number> helper = new CodeGenTestHelper<Number>(Number.class);
+        CodeGenTestHelper<Number> helper = new CodeGenTestHelper<>(Number.class);
 
         @Test
         public void number0() throws FatalErrorException {
@@ -35,7 +35,7 @@ public class T00_51CodeGenTest {
     }
 
     public static class FactorTest {
-        CodeGenTestHelper<Factor> helper = new CodeGenTestHelper<Factor>(Factor.class);
+        CodeGenTestHelper<Factor> helper = new CodeGenTestHelper<>(Factor.class);
 
         @Test
         public void factor0() throws FatalErrorException {
@@ -51,7 +51,7 @@ public class T00_51CodeGenTest {
     }
 
     public static class TermTest {
-        CodeGenTestHelper<Term> helper = new CodeGenTestHelper<Term>(Term.class);
+        CodeGenTestHelper<Term> helper = new CodeGenTestHelper<>(Term.class);
 
         @Test
         public void term0() throws FatalErrorException {
@@ -81,7 +81,7 @@ public class T00_51CodeGenTest {
     }
 
     public static class ExpressionTest {
-        CodeGenTestHelper<Expression> helper = new CodeGenTestHelper<Expression>(Expression.class);
+        CodeGenTestHelper<Expression> helper = new CodeGenTestHelper<>(Expression.class);
 
         @Test
         public void expression0() throws FatalErrorException {
