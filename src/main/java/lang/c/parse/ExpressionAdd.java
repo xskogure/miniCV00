@@ -47,15 +47,15 @@ public class ExpressionAdd extends CParseRule {
 		if (left != null && right != null) {
 			left.semanticCheck(pcx);
 			right.semanticCheck(pcx);
-			int lt = left.getCType().getType(); // The type of the left-hand side of the plus sign
-			int rt = right.getCType().getType(); // The type of the right-hand side of the plus sign
+			int lt = left.getType(); // The type of the left-hand side of the plus sign
+			int rt = right.getType(); // The type of the right-hand side of the plus sign
 			int nt = s[lt][rt]; // Type Calculation by Rules
 			String lts = left.getCType().toString();
 			String rts = right.getCType().toString();
 			if (nt == CType.T_err) {
 				pcx.fatalError(op, "Cannot add left type[" + lts + "] and right type[" + rts + "].");
 			}
-			this.setCType(CType.getCType(nt));
+			this.setCType(nt);
 			this.setConstant(left.isConstant() && right.isConstant()); // Only when both sides of the plus sign are constants is it a constant.
 		}
 	}
