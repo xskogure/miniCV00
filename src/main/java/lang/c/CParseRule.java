@@ -67,8 +67,16 @@ public abstract class CParseRule extends ParseRule<CParseContext> implements lan
 		return ctype;
 	}
 
+	public int getType() {
+		return ctype.getType();
+	}
+
 	public void setCType(CType ctype) {
 		this.ctype = ctype;
+	}
+
+	public void setCType(int type) {
+		this.ctype = CType.getCType(type);
 	}
 
 	public void setConstant(boolean isConstant) {
